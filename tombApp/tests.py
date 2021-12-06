@@ -2,7 +2,7 @@ from unittest.case import SkipTest
 from django.test import TestCase
 from django.urls import resolve
 from tombApp.views import home_page
-from django.http import HttpRequest
+from django.http import HttpRequest, response
 from tombApp.views import lore_page
 
 # Create your tests here.
@@ -31,4 +31,11 @@ class HomePageTest(TestCase):
         response = lore_page(request)
         html = response.content.decode('utf')
         self.assertIn('Self-resetting traps were built into the plan', html, 'Lore page not complete')
+
+    def testImageOnLore(self):
+        request = HttpRequest()
+        response = home_page(request)
+        html = response.content.decode('utf8')
+        self.assertIn('src="/static/images/acererak.jpg"', html, 'tests.py - Acerak image not found')
+
 

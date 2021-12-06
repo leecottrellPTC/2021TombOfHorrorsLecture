@@ -22,4 +22,5 @@ urlpatterns = [
     url(r'^$', views.home_page, name='home'),
     url(r'^lore.html$', views.lore_page, name='lore'),
     url(r'^home.html$', views.home_page, name='home'),
+    url(r'^character.html$', views.character_page, name='character'),
 ]
