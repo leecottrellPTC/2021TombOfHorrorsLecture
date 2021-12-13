@@ -1,11 +1,12 @@
 from django.http.response import HttpResponse
 from django.shortcuts import render
+from tombApp.models import character
 
-class character:
-    def __init__(self, name, hp, ac):
-        self.charname = name
-        self.hp = hp
-        self.ac = ac
+# class character:
+#     def __init__(self, name, hp, ac):
+#         self.charname = name
+#         self.hp = hp
+#         self.ac = ac
 
 theChar = character("", "","")
 
@@ -18,11 +19,12 @@ def lore_page(request):
     return render(request, 'lore.html')
 
 def character_page(request):
+    global theChar
     if request.method == 'POST':
-        theChar = character(request.POST.get("charname"),
+        theChar = character('',request.POST.get("charname"),
         request.POST.get("hitpoints"),
         request.POST.get("armor"))
         return render(request,'player.html', {'theChar' : theChar})
 
     else:
-        return render(request, 'character.html' )
+        return render(request, 'character.html', {'theChar' : theChar} )
