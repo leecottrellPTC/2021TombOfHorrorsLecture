@@ -8,15 +8,17 @@ from tombApp.models import character
 #         self.hp = hp
 #         self.ac = ac
 
-theChar = character("", "","")
+theChar = None
 
 # Create your views here.
 def home_page(request):
+    global theChar
     #html = "<html><body><h1>Welcome to the Tomb of Horrors</h1></html></body>"
-    return render(request, 'home.html')
+    return render(request, 'home.html', {'theChar' : theChar})
 
 def lore_page(request):
-    return render(request, 'lore.html')
+    global theChar
+    return render(request, 'lore.html', {'theChar' : theChar})
 
 def character_page(request):
     global theChar
@@ -24,6 +26,7 @@ def character_page(request):
         theChar = character('',request.POST.get("charname"),
         request.POST.get("hitpoints"),
         request.POST.get("armor"))
+        #request.session.
         return render(request,'player.html', {'theChar' : theChar})
 
     else:
