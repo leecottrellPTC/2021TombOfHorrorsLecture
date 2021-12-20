@@ -1,6 +1,7 @@
 from selenium import webdriver
 import unittest
 from selenium.webdriver.common.by import By
+import requests
 class FunctionalTest(unittest.TestCase):
     def setUp(self):
         #chromeOptions = webdriver.ChromeOptions()
@@ -57,6 +58,10 @@ class FunctionalTest(unittest.TestCase):
         h1 = self.browser.find_element_by_xpath("/html/body/h1").text
         self.assertIn('Kaladin', h1)
 
+    def testCSSFileLoads(self):
+        resp = requests.head('http://localhost:8000/static/darkly.css')
+        self.assertEqual(200, resp.status_code, 'darkly.css does not load')
+        
 if __name__ == '__main__':
     unittest.main()
     
