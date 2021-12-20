@@ -18,7 +18,7 @@ class FunctionalTest(unittest.TestCase):
         #refactored 12-3 to add proper title after writing template
         self.assertIn('Tomb of Horror', self.browser.title, 'Functional test - test title - Wrong title')
 
-    @unittest.skip('Just because')
+    
     def testLink(self):
         self.browser.get('http://localhost:8000')
         self.browser.find_element_by_partial_link_text("Lore").click()
@@ -32,7 +32,7 @@ class FunctionalTest(unittest.TestCase):
         cssClass = loreCSS.get_attribute('class')
         self.assertIn('active', cssClass, 'Functional - Active class not found')
 
-    @unittest.skip('Just because')
+    
     def testChar(self):
         self.browser.get('http://localhost:8000/character.html')
         self.browser.find_element_by_id("charname").send_keys("Kaladin")
@@ -45,6 +45,17 @@ class FunctionalTest(unittest.TestCase):
         self.assertEqual("60", hp.text, "Fun - HP is incorrect")
         ac = self.browser.find_element_by_id("ac")
         self.assertEqual("15", ac.text, "Fun - AC is incorrect")
+
+    def testGloblChar(self):
+        self.browser.get('http://localhost:8000/character.html')
+        self.browser.find_element_by_id("charname").send_keys("Kaladin")
+        self.browser.find_element_by_id("hitpoints").send_keys("60")
+        self.browser.find_element_by_id("armor").send_keys("15")
+        self.browser.find_element_by_id("submit").click()
+
+        self.browser.get('http://localhost:8000/home.html')
+        h1 = self.browser.find_element_by_xpath("/html/body/h1").text
+        self.assertIn('Kaladin', h1)
 
 if __name__ == '__main__':
     unittest.main()
